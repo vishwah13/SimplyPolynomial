@@ -1,4 +1,5 @@
 #include <iostream>
+#include <math.h>
 
 using namespace std;
 
@@ -12,7 +13,7 @@ void printTheExpresion(term *t, int n);
 
 int main()
 {
-	int numberOfTerms = 0;
+	int numberOfTerms,startNumber,Endnumber;
 
 	cout << "Enter the number of terms: ";
 	cin >> numberOfTerms;
@@ -26,7 +27,28 @@ int main()
 		cout << "Enter the exponent: " << "\n";
 		cin >> terms[i].exponent;
 	}
+
+	cout << "\n";
+
 	printTheExpresion(terms, numberOfTerms);
+	cout << "\n Enter the Start number: ";
+	cin >> startNumber;
+	cout << "Enter the Finish number: ";
+	cin >> Endnumber;
+
+	for (int i = startNumber; i <= Endnumber; i++)
+	{
+		int sum = 0;
+
+		for (int j = 0; j < numberOfTerms; j++)
+		{
+			int exp = pow(i, terms[j].exponent);
+			sum += terms[j].coefficient * exp;
+		}
+		cout << sum;
+		if(i != Endnumber)
+			cout << ",";
+	}
 
 	return 0;
 }
