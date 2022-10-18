@@ -6,46 +6,53 @@
 using namespace std;
 
 ofstream outputFile;
-ifstream ReadFile("output.txt");
+ifstream myfile("output.txt");
 
 void FileManager::writeTheOutputSet(int startNumber, int EndNumber, int numberOfTerms, Polynomial::term* t)
 {
-	outputFile.open("output.txt", ios::app);
-
-	for (int i = startNumber; i <= EndNumber; i++)
+	try
 	{
-		int sum = 0;
+		outputFile.open("output.txt", ios::app);
 
-		for (int j = 0; j < numberOfTerms; j++)
+		for (int i = startNumber; i <= EndNumber; i++)
 		{
-			int exp = pow(i, t[j].exponent);
-			sum += t[j].coefficient * exp;
-		}
-		outputFile << sum;
+			int sum = 0;
 
-		if (i != EndNumber)
-			outputFile << ",";
+			for (int j = 0; j < numberOfTerms; j++)
+			{
+				int exp = pow(i, t[j].exponent);
+				sum += t[j].coefficient * exp;
+			}
+			outputFile << sum;
+
+			if (i != EndNumber)
+				outputFile << ",";
+		}
+	}
+	catch(ofstream::failure& e)
+	{
+		cerr << "Error Opening and Reading the file";
 	}
 	outputFile.close();
 }
 
 void FileManager::readTheOutputSet()
 {
-	string text;
+	string line;
 
-	ReadFile.open("output.txt", ios::in);
-
-	if (ReadFile.is_open())
+	try
 	{
-		while (getline(ReadFile,text))
+		if (myfile.is_open())
 		{
-			cout << text;
+			while (getline(myfile, line))
+			{
+				cout << line << '\n';
+			}
+			myfile.close();
 		}
-		//ReadFile >> text;
-		
 	}
-	else
+	catch (ifstream::failure e)
 	{
-		cerr << "Failed to open the file";
+		cout << "Unable to open file and read";
 	}
 }

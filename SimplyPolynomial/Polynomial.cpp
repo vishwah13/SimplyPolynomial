@@ -4,7 +4,6 @@
 
 using namespace std;
 
-
 void Polynomial::getInputs(term* t,int numberofTerms)
 {
 	for (int i = 0; i < numberofTerms; i++)
