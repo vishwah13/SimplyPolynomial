@@ -1,6 +1,7 @@
 #include "Polynomial.h"
 #include <iostream>
 #include <math.h>
+#include <cstdlib>
 
 using namespace std;
 
@@ -72,7 +73,6 @@ void Polynomial::printTheExpresion(term* t, int n)
 
 int Polynomial::calculateDifference(int arr[],int &depth,int sizeOfArr)
 {
-	
 	for (int i = 0; i <= sizeOfArr; i++)
 	{
 		result[i] = arr[i + 1] - arr[i];
@@ -108,9 +108,7 @@ int Polynomial::findFactorial(int num)
 
 int Polynomial::FindCoefficient(int arr[], int& depth, int sizeOfArr)
 {
-	int difference = calculateDifference(arr, depth, sizeOfArr);
-
-	return difference / findFactorial(depth);
+	return calculateDifference(arr, depth, sizeOfArr) / findFactorial(depth);
 }
 
 void Polynomial::FindTheTerm(term* t,int A[],int &depth,int sizeofArr,int termNo)
@@ -123,15 +121,11 @@ void Polynomial::FindTheTerm(term* t,int A[],int &depth,int sizeofArr,int termNo
 
 		for (int j = 0; j < sizeofArr; j++)
 		{
-			int term = t[termNo].coefficient * pow(j, t[termNo].exponent);
-			A[j] = A[j] - term;
+			A[j] = A[j] - t[termNo].coefficient * pow(j, t[termNo].exponent);
 		}
-
 		if (checkArray(A, sizeofArr))
-		{
 			return;
-		}
-
+		
 		termNo++;
 		FindTheTerm(t, A, depth, sizeofArr, termNo);
 	}	
