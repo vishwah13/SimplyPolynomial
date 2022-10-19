@@ -117,28 +117,30 @@ int Polynomial::FindCoefficient(int arr[], int& depth, int sizeOfArr)
 	return difference / findFactorial(depth);
 }
 
-void Polynomial::FindTheTerm(term* t,int A[],int &depth,int sizeofArr)
+void Polynomial::FindTheTerm(term* t,int A[],int &depth,int sizeofArr,int termNo)
 {
 	//int sizeofArr = sizeof(A) / sizeof(A[0]);
 	//int tempArr[21];
 
-	for (int i = 0; i <= 4; i++)
+	while (!checkArray(A, sizeofArr))
 	{
-		t[i].coefficient = FindCoefficient(A, depth, sizeofArr);
-		t[i].exponent = depth;
-		int term = t[i].coefficient * pow(i, t[i].exponent);
+		t[termNo].coefficient = FindCoefficient(A, depth, sizeofArr);
+		t[termNo].exponent = depth;
 		depth = 1;
 
 		for (int j = 0; j < sizeofArr; j++)
 		{
+			int term = t[termNo].coefficient * pow(j, t[termNo].exponent);
 			A[j] = A[j] - term;
 		}
-	}
 
-	
-	
-	
-		
-		
+		if (checkArray(A, sizeofArr))
+		{
+			return;
+		}
+
+		termNo++;
+		FindTheTerm(t, A, depth, sizeofArr, termNo);
+	}	
 	
 }

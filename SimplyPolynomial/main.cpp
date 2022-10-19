@@ -30,8 +30,8 @@ int main()
 
 	int sizeofArr = sizeof(A) / sizeof(A[0]);
 	
-	Polynomial::term* newTerms = new Polynomial::term[4];
-	polynomial.FindTheTerm(newTerms,A, depth, sizeofArr);
+	Polynomial::term* newTerms = new Polynomial::term[4]();
+	polynomial.FindTheTerm(newTerms,A, depth, sizeofArr,0);
 	polynomial.printTheExpresion(newTerms,4);
 
 	return 0;

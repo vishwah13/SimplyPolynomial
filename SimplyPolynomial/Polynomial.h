@@ -18,7 +18,7 @@ public:
 	int calculateDifference(int arr[],int &depth,int sizeOfArr);
 	int findFactorial(int fact);
 	int FindCoefficient(int arr[], int& depth, int sizeOfArr);
-	void FindTheTerm(term* t,int arr[],int &depth, int sizeofArr);
+	void FindTheTerm(term* t,int arr[],int &depth, int sizeofArr,int i);
 };
 
 
