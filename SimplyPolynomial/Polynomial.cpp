@@ -4,9 +4,7 @@
 
 using namespace std;
 
-//int A[]{ 0, 14, 96, 300, 680, 1290, 2184, 3416, 5040, 7110, 9680, 12804, 16536, 20930, 26040, 31920,38624, 46206, 54720, 64220, 74760 };
 int result[21];
-//int depth = 1;
 
 void Polynomial::getInputs(term* t,int numberofTerms)
 {
@@ -61,6 +59,7 @@ void Polynomial::printTheExpresion(term* t, int n)
 			cout << "+";
 		}
 		cout << t[i].coefficient;
+		
 
 		if (t[i].exponent > 0)
 		{
@@ -109,9 +108,6 @@ int Polynomial::findFactorial(int num)
 
 int Polynomial::FindCoefficient(int arr[], int& depth, int sizeOfArr)
 {
-	//int sizeofArr = sizeof(arr) / sizeof(arr[0]);
-	
-	//cout << sizeofArr << "\n";
 	int difference = calculateDifference(arr, depth, sizeOfArr);
 
 	return difference / findFactorial(depth);
@@ -119,9 +115,6 @@ int Polynomial::FindCoefficient(int arr[], int& depth, int sizeOfArr)
 
 void Polynomial::FindTheTerm(term* t,int A[],int &depth,int sizeofArr,int termNo)
 {
-	//int sizeofArr = sizeof(A) / sizeof(A[0]);
-	//int tempArr[21];
-
 	while (!checkArray(A, sizeofArr))
 	{
 		t[termNo].coefficient = FindCoefficient(A, depth, sizeofArr);
