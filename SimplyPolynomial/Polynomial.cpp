@@ -1,7 +1,6 @@
 #include "Polynomial.h"
 #include <iostream>
 #include <math.h>
-#include <cstdlib>
 
 using namespace std;
 
@@ -16,7 +15,7 @@ void Polynomial::getInputs(term* t,int numberofTerms)
 		
 		if (t[i].exponent == 0)
 		{
-			cout << "Enter the Coefficient (-1000 to 1000): " << "\n";
+			cout << "Enter the Constant (-1000 to 1000): " << "\n";
 			t[i].coefficient = validateInput(-1000, 1000);
 		}
 		else
@@ -61,7 +60,6 @@ void Polynomial::printTheExpresion(term* t, int n)
 		}
 		cout << t[i].coefficient;
 		
-
 		if (t[i].exponent > 0)
 		{
 			cout << "x";
@@ -87,8 +85,7 @@ int Polynomial::calculateDifference(int arr[],int &depth,int sizeOfArr)
 		}
 			
 		else
-			return result[0];
-			
+			return result[0];	
 	}
 	return 0;
 }
@@ -111,23 +108,21 @@ int Polynomial::FindCoefficient(int arr[], int& depth, int sizeOfArr)
 	return calculateDifference(arr, depth, sizeOfArr) / findFactorial(depth);
 }
 
-void Polynomial::FindTheTerm(term* t,int A[],int &depth,int sizeofArr,int termNo)
+void Polynomial::FindTheExpression(term* t,int A[],int &depth,int sizeofArr,int termNo)
 {
-	while (!checkArray(A, sizeofArr))
-	{
 		t[termNo].coefficient = FindCoefficient(A, depth, sizeofArr);
 		t[termNo].exponent = depth;
-		depth = 1;
-
+		
 		for (int j = 0; j < sizeofArr; j++)
 		{
 			A[j] = A[j] - t[termNo].coefficient * pow(j, t[termNo].exponent);
 		}
-		if (checkArray(A, sizeofArr))
-			return;
-		
 		termNo++;
-		FindTheTerm(t, A, depth, sizeofArr, termNo);
-	}	
-	
+		if (checkArray(A, sizeofArr))
+		{
+			t[termNo].coefficient = A[0];
+			return;
+		}
+		depth = 1;
+		FindTheExpression(t, A, depth, sizeofArr, termNo);
 }

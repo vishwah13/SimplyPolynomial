@@ -4,7 +4,8 @@
 
 using namespace std;
 
-int A[]{ 0, 3, 24, 81, 192, 375, 648, 1029, 1536, 2187, 3000, 3993, 5184, 6591, 8232, 10125, 12288, 14739, 17496, 20577, 24000 };
+int A[]{ 7, 13, 17, 13, -5, -43, -107, -203, -337, -515, -743, -1027, -1373, -1787, -2275, -2843, -3497,
+-4243, -5087, -6035, -7093};
 int depth = 1;
 
 int main()
@@ -12,7 +13,7 @@ int main()
 	Polynomial polynomial;
 	FileManager file;
 
-	/*int numberOfTerms, startNumber, EndNumber;
+	int numberOfTerms, startNumber, EndNumber;
 
 	cout << "Enter the number of terms: ";
 	cin >> numberOfTerms;
@@ -25,13 +26,13 @@ int main()
 	cin >> startNumber;
 	cout << "Enter the Finish number: ";
 	cin >> EndNumber;
-	file.writeTheOutputSet(startNumber, EndNumber, numberOfTerms, terms);*/
-	//file.readTheOutputSet();
+	file.writeTheOutputSet(startNumber, EndNumber, numberOfTerms, terms);
+	file.readTheOutputSet();
 
 	int sizeofArr = sizeof(A) / sizeof(A[0]);
 	
-	Polynomial::term* newTerms = new Polynomial::term[4]();
-	polynomial.FindTheTerm(newTerms,A, depth, sizeofArr,0);
+	Polynomial::term* newTerms = new Polynomial::term[5]();
+	polynomial.FindTheExpression(newTerms,A, depth, sizeofArr,0);
 	polynomial.printTheExpresion(newTerms,4);
 
 	return 0;
