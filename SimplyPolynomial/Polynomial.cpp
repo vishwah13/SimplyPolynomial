@@ -52,6 +52,8 @@ void Polynomial::printTheExpresion(term* t, int n)
 {
 	for (int i = 0; i < n; i++)
 	{
+		if (t[i].coefficient == 0 && t[i].exponent == 0) return;
+
 		if (i != 0 && t[i].coefficient >= 0)
 		{
 			cout << "+";

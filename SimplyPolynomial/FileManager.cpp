@@ -1,25 +1,24 @@
 #include "FileManager.h"
 #include <iostream>
-#include <fstream>
 #include <vector>
 
 using namespace std;
 
-ofstream outputFile;
 ifstream myfile("output.txt");
 
-void FileManager::ClearFile()
+void FileManager::ClearFile(ofstream &file,string fileName)
 {
-	outputFile.open("output.txt");
-	outputFile << "";
-	outputFile.close();
+	file.open(fileName);
+	file << "";
+	file.close();
 }
 
 void FileManager::writeTheOutputSet(int startNumber, int EndNumber, int numberOfTerms, Polynomial::term* t)
 {
+	ofstream outputFile;
 	try
 	{
-		ClearFile();
+		ClearFile(outputFile, "output.txt");
 		outputFile.open("output.txt", ios::app);
 
 		for (int i = startNumber; i <= EndNumber; i++)
@@ -39,7 +38,7 @@ void FileManager::writeTheOutputSet(int startNumber, int EndNumber, int numberOf
 	}
 	catch(ofstream::failure& e)
 	{
-		cerr << "Error Opening and Reading the file";
+		cerr << "Error Opening and Writing the file";
 	}
 	outputFile.close();
 }
@@ -74,4 +73,37 @@ void FileManager::printResult(vector<int> vec)
 	for (auto it = begin(vec); it != end(vec); it++) {
 		cout << *it << ",";
 	}
+}
+
+void FileManager::writeTheExpressionToFile(Polynomial::term* t, int numberOfTerm)
+{
+	ofstream expressionFile;
+	try
+	{
+		ClearFile(expressionFile, "ExpressionFile.txt");
+		expressionFile.open("ExpressionFile.txt");
+
+		for (int i = 0; i < numberOfTerm; i++)
+		{
+			if (t[i].coefficient == 0 && t[i].exponent == 0) return;
+
+			if (i != 0 && t[i].coefficient >= 0)
+			{
+				expressionFile << "+";
+			}
+			expressionFile << t[i].coefficient;
+
+			if (t[i].exponent > 0)
+			{
+				expressionFile << "x";
+				expressionFile << "^";
+				expressionFile << t[i].exponent;
+			}
+		}
+	}
+	catch(ofstream::failure & e)
+	{
+		cerr << "Error Opening and Writing the file";
+	}
+	expressionFile.close();
 }

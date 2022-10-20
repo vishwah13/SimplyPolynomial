@@ -33,6 +33,7 @@ int main()
 	Polynomial::term* newTerms = new Polynomial::term[5]();
 	polynomial.FindTheExpression(newTerms, vec, Depth, TermNo);
 	polynomial.printTheExpresion(newTerms,4);
+	file.writeTheExpressionToFile(newTerms, 4);
 
 	return 0;
 }
