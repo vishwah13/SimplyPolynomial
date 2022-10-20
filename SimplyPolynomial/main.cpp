@@ -28,6 +28,7 @@ int main()
 	cin >> EndNumber;
 	file.writeTheOutputSet(startNumber, EndNumber, numberOfTerms, terms);
 	file.readTheOutputSet();
+	file.printResult();
 
 	int sizeofArr = sizeof(A) / sizeof(A[0]);
 	

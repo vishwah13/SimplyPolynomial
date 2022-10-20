@@ -4,7 +4,7 @@
 
 using namespace std;
 
-int result[21];
+int tempArr[21];
 
 void Polynomial::getInputs(term* t,int numberofTerms)
 {
@@ -71,21 +71,22 @@ void Polynomial::printTheExpresion(term* t, int n)
 
 int Polynomial::calculateDifference(int arr[],int &depth,int sizeOfArr)
 {
+
 	for (int i = 0; i <= sizeOfArr; i++)
 	{
-		result[i] = arr[i + 1] - arr[i];
+		tempArr[i] = arr[i + 1] - arr[i];
 	}
 	sizeOfArr--;
 	for (int i = 0; i < sizeOfArr; i++)
 	{
-		if (result[i] != result[i+1] && depth <= 4)
+		if (tempArr[i] != tempArr[i+1] && depth <= 4)
 		{
 			depth++;
-			calculateDifference(result, depth, sizeOfArr);
+			calculateDifference(tempArr, depth, sizeOfArr);
 		}
 			
 		else
-			return result[0];	
+			return tempArr[0];	
 	}
 	return 0;
 }

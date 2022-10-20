@@ -1,12 +1,13 @@
+#include "FileManager.h"
 #include <iostream>
 #include <fstream>
-#include "FileManager.h"
-#include <string>
+#include <vector>
 
 using namespace std;
 
 ofstream outputFile;
 ifstream myfile("output.txt");
+vector<int> vec;
 
 void FileManager::writeTheOutputSet(int startNumber, int EndNumber, int numberOfTerms, Polynomial::term* t)
 {
@@ -38,15 +39,17 @@ void FileManager::writeTheOutputSet(int startNumber, int EndNumber, int numberOf
 
 void FileManager::readTheOutputSet()
 {
-	string line;
-
 	try
 	{
 		if (myfile.is_open())
 		{
-			while (getline(myfile, line))
+			while (!myfile.eof() && ((char)myfile.peek()) != '\n')
 			{
-				cout << line << '\n';
+				char t;
+				int n;
+				myfile >> n >> t;
+				vec.push_back(n);
+				t = '\n';
 			}
 			myfile.close();
 		}
@@ -54,5 +57,12 @@ void FileManager::readTheOutputSet()
 	catch (ifstream::failure e)
 	{
 		cout << "Unable to open file and read";
+	}
+}
+
+void FileManager::printResult()
+{
+	for (const int& i : vec) {
+		cout << i << ",";
 	}
 }
