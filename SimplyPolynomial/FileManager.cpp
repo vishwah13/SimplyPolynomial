@@ -62,7 +62,7 @@ void FileManager::readTheOutputSet()
 
 void FileManager::printResult()
 {
-	for (const int& i : vec) {
-		cout << i << ",";
+	for (auto it = begin(vec); it != end(vec); it++) {
+		cout << *it << endl;
 	}
 }

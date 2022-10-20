@@ -4,8 +4,6 @@
 
 using namespace std;
 
-int tempArr[21];
-
 void Polynomial::getInputs(term* t,int numberofTerms)
 {
 	for (int i = 0; i < numberofTerms; i++)
@@ -38,11 +36,11 @@ int Polynomial::validateInput( int min, int max)
 	return x;
 }
 
-bool Polynomial::checkArray(int arr[], int size)
+bool Polynomial::checkVector(vector<int> vec)
 {
-	for (int i = 0; i < size; i++)
+	for (int i = 0; i < vec.size() - 1; i++)
 	{
-		if (arr[i] != arr[0])
+		if (vec.at(i + 1) != vec.at(i))
 		{
 			return false;
 		}
@@ -69,26 +67,22 @@ void Polynomial::printTheExpresion(term* t, int n)
 	}
 }
 
-int Polynomial::calculateDifference(int arr[],int &depth,int sizeOfArr)
+int Polynomial::calculateDifference(vector<int> vec,int &depth)
 {
-
-	for (int i = 0; i <= sizeOfArr; i++)
+	vector<int> tempVec;
+	int difference = 0;
+	for (int i = 0; i < vec.size() - 1; i++)
 	{
-		tempArr[i] = arr[i + 1] - arr[i];
+		tempVec.push_back(vec.at(i+1) - vec.at(i));
 	}
-	sizeOfArr--;
-	for (int i = 0; i < sizeOfArr; i++)
+	difference = tempVec[0];
+	if (!checkVector(tempVec))
 	{
-		if (tempArr[i] != tempArr[i+1] && depth <= 4)
-		{
-			depth++;
-			calculateDifference(tempArr, depth, sizeOfArr);
-		}
-			
-		else
-			return tempArr[0];	
+		depth++;
+		difference = calculateDifference(tempVec, depth);
 	}
-	return 0;
+	
+	return difference;
 }
 
 int Polynomial::findFactorial(int num)
@@ -104,26 +98,26 @@ int Polynomial::findFactorial(int num)
 	
 }
 
-int Polynomial::FindCoefficient(int arr[], int& depth, int sizeOfArr)
+int Polynomial::FindCoefficient(vector<int> vec, int& depth)
 {
-	return calculateDifference(arr, depth, sizeOfArr) / findFactorial(depth);
+	return calculateDifference(vec, depth) / findFactorial(depth);
 }
 
-void Polynomial::FindTheExpression(term* t,int A[],int &depth,int sizeofArr,int termNo)
+void Polynomial::FindTheExpression(term* t,vector<int> vec,int &depth,int termNo)
 {
-		t[termNo].coefficient = FindCoefficient(A, depth, sizeofArr);
+		t[termNo].coefficient = FindCoefficient(vec, depth);
 		t[termNo].exponent = depth;
 		
-		for (int j = 0; j < sizeofArr; j++)
+		for (int j = 0; j < vec.size(); j++)
 		{
-			A[j] = A[j] - t[termNo].coefficient * pow(j, t[termNo].exponent);
+			vec[j] = vec.at(j) - t[termNo].coefficient * pow(j, t[termNo].exponent);
 		}
 		termNo++;
-		if (checkArray(A, sizeofArr))
+		if (checkVector(vec))
 		{
-			t[termNo].coefficient = A[0];
+			t[termNo].coefficient = vec.at(0);
 			return;
 		}
 		depth = 1;
-		FindTheExpression(t, A, depth, sizeofArr, termNo);
+		FindTheExpression(t, vec, depth, termNo);
 }

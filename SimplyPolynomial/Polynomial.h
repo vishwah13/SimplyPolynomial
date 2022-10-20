@@ -1,13 +1,14 @@
 #pragma once
-
+#include <vector>
+using namespace std;
 class Polynomial
 {
 private:
 	int validateInput(int min, int max);
-	bool checkArray(int arr[], int size);
-	int calculateDifference(int arr[], int& depth, int sizeOfArr);
+	bool checkVector(vector<int> arr);
+	int calculateDifference(vector<int> arr, int& depth);
 	int findFactorial(int fact);
-	int FindCoefficient(int arr[], int& depth, int sizeOfArr);
+	int FindCoefficient(vector<int> arr, int& depth);
 
 public:
 	 struct term
@@ -18,7 +19,7 @@ public:
 
 	void getInputs(term* t, int numberofTerms);
 	void printTheExpresion(term* t, int n);
-	void FindTheExpression(term* t,int arr[],int &depth, int sizeofArr,int i);
+	void FindTheExpression(term* t,vector<int> arr,int &depth,int i);
 };
 
 
