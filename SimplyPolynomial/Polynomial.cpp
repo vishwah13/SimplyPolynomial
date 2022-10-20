@@ -76,7 +76,7 @@ int Polynomial::calculateDifference(vector<int> vec,int &depth)
 		tempVec.push_back(vec.at(i+1) - vec.at(i));
 	}
 	difference = tempVec[0];
-	if (!checkVector(tempVec))
+	if (!checkVector(tempVec) && depth <= 4)
 	{
 		depth++;
 		difference = calculateDifference(tempVec, depth);

@@ -7,12 +7,19 @@ using namespace std;
 
 ofstream outputFile;
 ifstream myfile("output.txt");
-vector<int> vec;
+
+void FileManager::ClearFile()
+{
+	outputFile.open("output.txt");
+	outputFile << "";
+	outputFile.close();
+}
 
 void FileManager::writeTheOutputSet(int startNumber, int EndNumber, int numberOfTerms, Polynomial::term* t)
 {
 	try
 	{
+		ClearFile();
 		outputFile.open("output.txt", ios::app);
 
 		for (int i = startNumber; i <= EndNumber; i++)
@@ -37,8 +44,9 @@ void FileManager::writeTheOutputSet(int startNumber, int EndNumber, int numberOf
 	outputFile.close();
 }
 
-void FileManager::readTheOutputSet()
+vector<int> FileManager::readTheOutputSet()
 {
+	vector<int> vec;
 	try
 	{
 		if (myfile.is_open())
@@ -53,6 +61,7 @@ void FileManager::readTheOutputSet()
 			}
 			myfile.close();
 		}
+		return vec;
 	}
 	catch (ifstream::failure e)
 	{
@@ -60,9 +69,9 @@ void FileManager::readTheOutputSet()
 	}
 }
 
-void FileManager::printResult()
+void FileManager::printResult(vector<int> vec)
 {
 	for (auto it = begin(vec); it != end(vec); it++) {
-		cout << *it << endl;
+		cout << *it << ",";
 	}
 }

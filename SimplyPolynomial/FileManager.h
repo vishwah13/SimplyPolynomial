@@ -5,10 +5,12 @@
 class FileManager
 {
 private:
+	void ClearFile();
+	
 	
 public:
 
 	void writeTheOutputSet(int startNumber, int EndNumber, int numberOfTerms, Polynomial::term* t);
-	void readTheOutputSet();
-	void printResult();
+	vector<int> readTheOutputSet();
+	void printResult(vector<int> vec);
 };
