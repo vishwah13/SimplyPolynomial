@@ -17,6 +17,8 @@ public:
 		int exponent;
 	};
 
+	 int startNo = 0;
+
 	void getInputs(term* t, int numberofTerms);
 	void showTheOutputSet(int startNumber, int EndNumber, int numberOfTerms,term* t);
 	void printTheExpresion(term* t, int n);

@@ -132,7 +132,7 @@ void Polynomial::FindTheExpression(term* t,vector<int> vec,int &depth,int termNo
 		
 		for (int j = 0; j < vec.size(); j++)
 		{
-			vec[j] = vec.at(j) - t[termNo].coefficient * pow(j, t[termNo].exponent);
+			vec[j] = vec.at(j) - t[termNo].coefficient * pow(startNo + j, t[termNo].exponent);
 		}
 		termNo++;
 		if (checkVector(vec))

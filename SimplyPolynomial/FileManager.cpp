@@ -104,7 +104,11 @@ void FileManager::writeTheExpressionToFile(Polynomial::term* t, int numberOfTerm
 
 		for (int i = 0; i < numberOfTerm; i++)
 		{
-			if (t[i].coefficient == 0 && t[i].exponent == 0) return;
+			if (t[i].coefficient == 0 && t[i].exponent == 0)
+			{
+				expressionFile << "\n";
+				return;
+			}
 
 			if (i != 0 && t[i].coefficient >= 0)
 			{
@@ -119,9 +123,6 @@ void FileManager::writeTheExpressionToFile(Polynomial::term* t, int numberOfTerm
 				expressionFile << t[i].exponent;
 			}
 		}
-
-		expressionFile << "\n";
-		
 	}
 	catch(ofstream::failure & e)
 	{

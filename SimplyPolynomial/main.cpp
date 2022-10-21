@@ -15,7 +15,7 @@ int main()
 	Polynomial polynomial;
 	FileManager file;
 
-	cout << "Provide your owne expression (1)"<< "\n";
+	cout << "Provide your own expression (1)"<< "\n";
 	cout << "Do you want to us output set ? (2)"<< "\n";
 	int x;
 	cout << "What is your choice:";
@@ -50,7 +50,9 @@ void getExpression(FileManager file, Polynomial polynomial)
 	cin >> startNumber;
 	cout << "Enter the Finish number: ";
 	cin >> EndNumber;
+	cout << "\n";
 	cout << "The outputs are:" << "\n";
+	polynomial.startNo = startNumber;
 	polynomial.showTheOutputSet(startNumber, EndNumber, numberOfTerms, terms);
 
 	cout << "Do you want to save it ? (y/n):";
@@ -77,5 +79,6 @@ void useOutputSet(FileManager file, Polynomial polynomial)
 	cout << "\n\n";
 	cout << "The Expression is :";
 	polynomial.printTheExpresion(newTerms, 4);
+	cout << "\n";
 	file.writeTheExpressionToFile(newTerms, 4);
 }
