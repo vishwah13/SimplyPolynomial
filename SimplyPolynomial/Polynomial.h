@@ -18,6 +18,7 @@ public:
 	};
 
 	void getInputs(term* t, int numberofTerms);
+	void showTheOutputSet(int startNumber, int EndNumber, int numberOfTerms,term* t);
 	void printTheExpresion(term* t, int n);
 	void FindTheExpression(term* t,vector<int> arr,int &depth,int i);
 };

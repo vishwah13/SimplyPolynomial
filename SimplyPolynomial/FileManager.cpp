@@ -1,6 +1,8 @@
 #include "FileManager.h"
 #include <iostream>
+#include <sstream>
 #include <vector>
+#include <algorithm>
 
 using namespace std;
 
@@ -13,12 +15,21 @@ void FileManager::ClearFile(ofstream &file,string fileName)
 	file.close();
 }
 
-void FileManager::writeTheOutputSet(int startNumber, int EndNumber, int numberOfTerms, Polynomial::term* t)
+void FileManager::getVector(const string& s, vector<int>& v)
+{
+	int n = 0;
+	stringstream ss(s);
+	while (ss >> n)
+	{
+		v.push_back(n);
+	}
+}
+
+void FileManager::writeTheOutputSetToFile(int startNumber, int EndNumber, int numberOfTerms, Polynomial::term* t)
 {
 	ofstream outputFile;
 	try
 	{
-		ClearFile(outputFile, "output.txt");
 		outputFile.open("output.txt", ios::app);
 
 		for (int i = startNumber; i <= EndNumber; i++)
@@ -33,8 +44,9 @@ void FileManager::writeTheOutputSet(int startNumber, int EndNumber, int numberOf
 			outputFile << sum;
 
 			if (i != EndNumber)
-				outputFile << ",";
+				outputFile << ", ";
 		}
+		outputFile << "\n";
 	}
 	catch(ofstream::failure& e)
 	{
@@ -43,29 +55,37 @@ void FileManager::writeTheOutputSet(int startNumber, int EndNumber, int numberOf
 	outputFile.close();
 }
 
-vector<int> FileManager::readTheOutputSet()
+vector<int> FileManager::readTheOutputSetFromFile()
 {
 	vector<int> vec;
+	vector<string> linesV;
+	ifstream reader = ifstream("output.txt", ios::in);
 	try
 	{
-		if (myfile.is_open())
+		string line;
+		int index = 0;
+		cout << "The output sets are: " << "\n";
+		while (getline(reader, line, '\n'))
 		{
-			while (!myfile.eof() && ((char)myfile.peek()) != '\n')
-			{
-				char t;
-				int n;
-				myfile >> n >> t;
-				vec.push_back(n);
-				t = '\n';
-			}
-			myfile.close();
+			cout << index << ": " << line << "\n ";
+			index++;
+			cout << "\n";
+			line.erase(remove(line.begin(), line.end(), ','), line.end());
+			linesV.push_back(line);
 		}
-		return vec;
+		reader.close();
 	}
 	catch (ifstream::failure e)
 	{
 		cout << "Unable to open file and read";
 	}
+
+	cout << "\nWhich output set do you want to use to find the expression: ";
+	int index; cin >> index;
+	string currentLine = linesV[index];
+	getVector(currentLine, vec);
+
+	return vec;
 }
 
 void FileManager::printResult(vector<int> vec)
@@ -80,8 +100,7 @@ void FileManager::writeTheExpressionToFile(Polynomial::term* t, int numberOfTerm
 	ofstream expressionFile;
 	try
 	{
-		ClearFile(expressionFile, "ExpressionFile.txt");
-		expressionFile.open("ExpressionFile.txt");
+		expressionFile.open("ExpressionFile.txt", ios::app);
 
 		for (int i = 0; i < numberOfTerm; i++)
 		{
@@ -100,6 +119,9 @@ void FileManager::writeTheExpressionToFile(Polynomial::term* t, int numberOfTerm
 				expressionFile << t[i].exponent;
 			}
 		}
+
+		expressionFile << "\n";
+		
 	}
 	catch(ofstream::failure & e)
 	{

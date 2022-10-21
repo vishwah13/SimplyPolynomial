@@ -4,6 +4,7 @@
 
 using namespace std;
 
+
 void Polynomial::getInputs(term* t,int numberofTerms)
 {
 	for (int i = 0; i < numberofTerms; i++)
@@ -67,6 +68,25 @@ void Polynomial::printTheExpresion(term* t, int n)
 			cout << t[i].exponent;
 		}
 	}
+}
+
+void Polynomial::showTheOutputSet(int startNumber, int EndNumber, int numberOfTerms,term* t)
+{
+	for (int i = startNumber; i <= EndNumber; i++)
+	{
+		int sum = 0;
+
+		for (int j = 0; j < numberOfTerms; j++)
+		{
+			int exp = pow(i, t[j].exponent);
+			sum += t[j].coefficient * exp;
+		}
+		cout << sum;
+
+		if (i != EndNumber)
+			cout << ", ";
+	}
+	cout << "\n";
 }
 
 int Polynomial::calculateDifference(vector<int> vec,int &depth)
